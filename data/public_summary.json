@@ -1,0 +1,74 @@
+{
+  "author": "Yaowen Sun",
+  "claim_boundary": "Bounded measurement over tested BEIR-style datasets, candidate depths, cached compact cross-encoder reranker, and CPU dynamic int8 quantization only.",
+  "datasets": [
+    "arguana",
+    "fiqa",
+    "nfcorpus",
+    "scifact"
+  ],
+  "depths": [
+    20,
+    50,
+    100
+  ],
+  "methods": [
+    "bm25_no_rerank",
+    "fp32_reranker_cpu",
+    "dynamic_int8_reranker_cpu"
+  ],
+  "quality_cost_summary": {
+    "datasets": [
+      "arguana",
+      "fiqa",
+      "nfcorpus",
+      "scifact"
+    ],
+    "gate": {
+      "cost_benefit": true,
+      "datasets": [
+        "arguana",
+        "fiqa",
+        "nfcorpus",
+        "scifact"
+      ],
+      "int8_latency_ratio_mean": 0.7711619190707852,
+      "int8_minus_fp32_ndcg_mean": -0.004704425261511828,
+      "int8_model_size_ratio": 0.6450451520275926,
+      "latency_benefit": true,
+      "model_size_benefit": true,
+      "pass_signal_met": true,
+      "quality_ok": true,
+      "status": "PASS",
+      "thresholds": {
+        "max_latency_ratio": 0.9,
+        "max_model_size_ratio": 0.75,
+        "max_ndcg_drop": -0.02
+      }
+    },
+    "int8_latency_ratio_mean": 0.7711619190707852,
+    "int8_minus_fp32_mrr_mean": -0.006545965608465606,
+    "int8_minus_fp32_ndcg_mean": -0.004704425261511828,
+    "int8_minus_fp32_recall_mean": 0.0,
+    "int8_model_size_ratio": 0.6450451520275926,
+    "methods": [
+      "bm25_no_rerank",
+      "dynamic_int8_reranker_cpu",
+      "fp32_reranker_cpu"
+    ],
+    "paired_cells": 60
+  },
+  "row_counts": {
+    "aggregate_rows": 180,
+    "query_rows": 4320
+  },
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "title": "Post-Training Quantization Trade-offs for Compact Neural Reranking in Lightweight Retrieval",
+  "year": 2026
+}

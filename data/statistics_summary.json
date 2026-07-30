@@ -1,0 +1,60 @@
+{
+  "bootstrap_ci": {
+    "mrr@10_delta": {
+      "ci_high": -0.003173500881834188,
+      "ci_low": -0.009789186507936505,
+      "mean": -0.006545965608465606
+    },
+    "ndcg@10_delta": {
+      "ci_high": -0.0022963952312479467,
+      "ci_low": -0.007076570701087474,
+      "mean": -0.004704425261511828
+    }
+  },
+  "quality_cost_summary": {
+    "datasets": [
+      "arguana",
+      "fiqa",
+      "nfcorpus",
+      "scifact"
+    ],
+    "gate": {
+      "cost_benefit": true,
+      "datasets": [
+        "arguana",
+        "fiqa",
+        "nfcorpus",
+        "scifact"
+      ],
+      "int8_latency_ratio_mean": 0.7711619190707852,
+      "int8_minus_fp32_ndcg_mean": -0.004704425261511828,
+      "int8_model_size_ratio": 0.6450451520275926,
+      "latency_benefit": true,
+      "model_size_benefit": true,
+      "pass_signal_met": true,
+      "quality_ok": true,
+      "status": "PASS",
+      "thresholds": {
+        "max_latency_ratio": 0.9,
+        "max_model_size_ratio": 0.75,
+        "max_ndcg_drop": -0.02
+      }
+    },
+    "int8_latency_ratio_mean": 0.7711619190707852,
+    "int8_minus_fp32_mrr_mean": -0.006545965608465606,
+    "int8_minus_fp32_ndcg_mean": -0.004704425261511828,
+    "int8_minus_fp32_recall_mean": 0.0,
+    "int8_model_size_ratio": 0.6450451520275926,
+    "methods": [
+      "bm25_no_rerank",
+      "dynamic_int8_reranker_cpu",
+      "fp32_reranker_cpu"
+    ],
+    "paired_cells": 60
+  },
+  "status": "PASS_PHASE4_ANALYSIS",
+  "strengthened_matrix_trigger": {
+    "reason": "pilot/formal int8 tradeoff gate passed",
+    "status": "NO_STRENGTHENED_MATRIX_TRIGGER"
+  }
+}

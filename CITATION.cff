@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this artifact, please cite the accompanying manuscript."
+title: "Post-Training Quantization Trade-offs for Compact Neural Reranking in Lightweight Retrieval"
+authors:
+  - family-names: "Sun"
+    given-names: "Yaowen"
+year: 2026
+license: MIT
