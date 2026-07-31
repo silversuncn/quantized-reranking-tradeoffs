@@ -67,8 +67,8 @@ Row-count check:
 ## Key Results
 
 - Dynamic int8 reranking preserves nDCG@10 within the planned bounded-loss gate.
-- The mean int8-vs-fp32 nDCG@10 delta is `-0.004704425261511828`.
-- The mean latency ratio is `0.7711619190707852`, and the model-size ratio is `0.6450451520275926`.
+- The mean int8-vs-fp32 nDCG@10 delta is `-0.0047`.
+- The mean latency ratio is `0.7712`, and the model-size ratio is `0.6450`.
 - Recall@100 is unchanged because all reranking variants operate over the same first-stage candidates.
 
 ## Requirements
