@@ -1,14 +1,14 @@
 {
   "bootstrap_ci": {
     "mrr@10_delta": {
-      "ci_high": -0.003173500881834188,
-      "ci_low": -0.009789186507936505,
-      "mean": -0.006545965608465606
+      "ci_high": -0.0026140873015873018,
+      "ci_low": -0.006503703703703722,
+      "mean": -0.004561177248677249
     },
     "ndcg@10_delta": {
-      "ci_high": -0.0022963952312479467,
-      "ci_low": -0.007076570701087474,
-      "mean": -0.004704425261511828
+      "ci_high": -0.0018329136899025804,
+      "ci_low": -0.00464592731693888,
+      "mean": -0.0032362052020953715
     }
   },
   "quality_cost_summary": {
@@ -26,8 +26,8 @@
         "nfcorpus",
         "scifact"
       ],
-      "int8_latency_ratio_mean": 0.7711619190707852,
-      "int8_minus_fp32_ndcg_mean": -0.004704425261511828,
+      "int8_latency_ratio_mean": 0.7773979139667812,
+      "int8_minus_fp32_ndcg_mean": -0.0032362052020953715,
       "int8_model_size_ratio": 0.6450451520275926,
       "latency_benefit": true,
       "model_size_benefit": true,
@@ -40,9 +40,9 @@
         "max_ndcg_drop": -0.02
       }
     },
-    "int8_latency_ratio_mean": 0.7711619190707852,
-    "int8_minus_fp32_mrr_mean": -0.006545965608465606,
-    "int8_minus_fp32_ndcg_mean": -0.004704425261511828,
+    "int8_latency_ratio_mean": 0.7773979139667812,
+    "int8_minus_fp32_mrr_mean": -0.004561177248677249,
+    "int8_minus_fp32_ndcg_mean": -0.0032362052020953715,
     "int8_minus_fp32_recall_mean": 0.0,
     "int8_model_size_ratio": 0.6450451520275926,
     "methods": [

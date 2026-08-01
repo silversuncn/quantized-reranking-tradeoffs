@@ -42,12 +42,13 @@ retrieval datasets.
 | Candidate depths | `20`, `50`, `100` | 3 |
 | Methods | `bm25_no_rerank`, `fp32_reranker_cpu`, `dynamic_int8_reranker_cpu` | 3 |
 | Seeds | `1`, `2`, `3`, `4`, `5` | 5 |
+| Query cap | `100` per dataset-seed where qrels permit | 100 |
 
 Row-count check:
 
 ```text
 4 datasets x 3 depths x 3 methods x 5 seeds = 180 aggregate rows
-4 datasets x 3 depths x 3 methods x 5 seeds x 24 queries = 4320 query rows
+4 datasets x 3 depths x 3 methods x 5 seeds x 100 queries = 18000 query rows
 ```
 
 ## Hardware & Environment
@@ -67,8 +68,8 @@ Row-count check:
 ## Key Results
 
 - Dynamic int8 reranking preserves nDCG@10 within the planned bounded-loss gate.
-- The mean int8-vs-fp32 nDCG@10 delta is `-0.0047`.
-- The mean latency ratio is `0.7712`, and the model-size ratio is `0.6450`.
+- The mean int8-vs-fp32 nDCG@10 delta is `-0.0032`.
+- The mean latency ratio is `0.7774`, and the model-size ratio is `0.6450`.
 - Recall@100 is unchanged because all reranking variants operate over the same first-stage candidates.
 
 ## Requirements

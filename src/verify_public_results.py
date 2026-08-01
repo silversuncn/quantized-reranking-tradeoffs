@@ -25,12 +25,16 @@ def build_report() -> dict[str, object]:
         raise AssertionError(f"aggregate rows {len(aggregate)} != 180")
     if len(agg_keys) != 180:
         raise AssertionError("duplicate aggregate keys")
-    if len(query) != 4320:
-        raise AssertionError(f"query rows {len(query)} != 4320")
-    if len(query_keys) != 4320:
+    if len(query) != 18000:
+        raise AssertionError(f"query rows {len(query)} != 18000")
+    if len(query_keys) != 18000:
         raise AssertionError("duplicate query keys")
     if summary["row_counts"]["aggregate_rows"] != 180:
         raise AssertionError("summary aggregate row mismatch")
+    if summary["row_counts"]["query_rows"] != 18000:
+        raise AssertionError("summary query row mismatch")
+    if summary.get("query_cap") != 100:
+        raise AssertionError("summary query cap mismatch")
     gate = summary["quality_cost_summary"]["gate"]
     if gate["status"] != "PASS":
         raise AssertionError("quality-cost gate did not pass")
