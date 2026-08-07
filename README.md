@@ -23,12 +23,17 @@ retrieval datasets.
 │   ├── formal_aggregate_metrics.csv
 │   ├── formal_query_metrics.csv
 │   ├── paired_int8_vs_fp32_deltas.csv
+│   ├── query_level_collapsed_deltas.csv
+│   ├── query_cluster_summary.json
 │   └── statistics_summary.json
 ├── figures/
 │   ├── quality_cost_pareto.png
+│   ├── latency_vs_depth.png
 │   └── ndcg_delta_heatmap.png
 ├── src/
 │   ├── verify_public_results.py
+│   ├── query_cluster_analysis.py
+│   ├── plot_figures.py
 │   └── ranking_metrics.py
 └── tests/
     └── test_public_results.py
@@ -67,8 +72,9 @@ Row-count check:
 
 ## Key Results
 
-- Dynamic int8 reranking preserves nDCG@10 within the planned bounded-loss gate.
-- The mean int8-vs-fp32 nDCG@10 delta is `-0.0032`.
+- The 60 matched dataset-depth-seed cells give descriptive mean deltas of `-0.0032` nDCG@10 and `-0.0046` MRR@10.
+- Because queries recur across depths and may overlap across seeds, inference collapses repeated records into `1,335` unique dataset-query units.
+- Dataset-balanced unique-query means are `-0.0019` nDCG@10 (95% CI `[-0.0048, 0.0010]`) and `-0.0020` MRR@10 (95% CI `[-0.0061, 0.0021]`).
 - The mean latency ratio is `0.7774`, and the model-size ratio is `0.6450`.
 - Recall@100 is unchanged because all reranking variants operate over the same first-stage candidates.
 
@@ -81,6 +87,10 @@ matrix used the software versions listed above.
 python src/verify_public_results.py
 python -m unittest discover -s tests -q
 ```
+
+The query-unit analysis and figures can be regenerated with
+`src/query_cluster_analysis.py` and `src/plot_figures.py`; plotting requires
+Matplotlib in addition to the recorded experiment environment.
 
 ## Citation
 
