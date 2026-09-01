@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reanalyze P23 quality deltas at the unique dataset-query unit."""
+"""Reanalyze quality deltas at the unique dataset-query unit."""
 
 from __future__ import annotations
 

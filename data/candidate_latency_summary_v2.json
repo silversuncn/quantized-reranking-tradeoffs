@@ -1,0 +1,35 @@
+{
+  "arguana_fiqa_scifact_deviations": [],
+  "arguana_fiqa_scifact_nominal_deviation_count": 0,
+  "corrected_throughput_rows": 180,
+  "distribution_rows": 12,
+  "end_to_end_int8_fp32_ratio_max": 0.8587460118121613,
+  "end_to_end_int8_fp32_ratio_mean": 0.787322079555077,
+  "end_to_end_int8_fp32_ratio_min": 0.7041103717142069,
+  "input_aggregate_csv": "artifacts/query_cap_100_20260731/formal/formal_aggregate_metrics.csv",
+  "input_query_csv": "artifacts/query_cap_100_20260731/formal/formal_query_metrics.csv",
+  "latency_boundary_rows": 180,
+  "nfcorpus_depth20": {
+    "all_actual_equals_nominal": false,
+    "dataset": "nfcorpus",
+    "max_actual_candidate_count": 20.0,
+    "maximum_candidate_cutoff": 20,
+    "mean_actual_candidate_count": 15.308,
+    "min_actual_candidate_count": 0.0,
+    "n_query_seed_units": 500,
+    "p25_actual_candidate_count": 10.75,
+    "p50_actual_candidate_count": 20.0,
+    "p75_actual_candidate_count": 20.0,
+    "zero_candidate_count": 39
+  },
+  "outputs": {
+    "candidate_depth_distribution_v2": "artifacts/query_cap_100_20260731/formal/revision_v2_20260830/candidate_depth_distribution_v2.csv",
+    "corrected_throughput_v2": "artifacts/query_cap_100_20260731/formal/revision_v2_20260830/corrected_throughput_v2.csv",
+    "end_to_end_int8_fp32_ratios_v2": "artifacts/query_cap_100_20260731/formal/revision_v2_20260830/end_to_end_int8_fp32_ratios_v2.csv",
+    "formal_aggregate_metrics_v2": "artifacts/query_cap_100_20260731/formal/revision_v2_20260830/formal_aggregate_metrics_v2.csv",
+    "latency_boundary_v2": "artifacts/query_cap_100_20260731/formal/revision_v2_20260830/latency_boundary_v2.csv"
+  },
+  "query_units": 6000,
+  "ratio_rows": 60,
+  "status": "PASS"
+}

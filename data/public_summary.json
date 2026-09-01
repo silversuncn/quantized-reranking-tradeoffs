@@ -12,7 +12,7 @@
       "mean": -0.0019086548384222395
     }
   },
-  "claim_boundary": "Bounded measurement over tested BEIR-style datasets, candidate depths, cached compact cross-encoder reranker, CPU dynamic int8 quantization, and 100-query per dataset-seed cap only.",
+  "claim_boundary": "Bounded measurement over tested BEIR-style datasets, maximum candidate cutoffs, cached compact cross-encoder reranker, CPU dynamic int8 quantization, and 100-query per dataset-seed cap only.",
   "datasets": [
     "arguana",
     "fiqa",
@@ -46,7 +46,14 @@
       "dynamic_int8_reranker_cpu",
       "fp32_reranker_cpu"
     ],
-    "paired_cells": 60
+    "paired_cells": 60,
+    "int8_end_to_end_latency_ratio_mean": 0.787322079555077,
+    "int8_end_to_end_latency_ratio_min": 0.7041103717142069,
+    "int8_end_to_end_latency_ratio_max": 0.8587460118121613,
+    "nfcorpus_cutoff20_mean_actual_candidate_count": 15.308,
+    "nfcorpus_cutoff20_zero_candidate_count": 39,
+    "int8_reranker_only_latency_ratio_mean_legacy_context": 0.7773979139667812,
+    "main_latency_ratio_field": "int8_end_to_end_latency_ratio_mean"
   },
   "query_cap": 100,
   "row_counts": {
@@ -67,5 +74,39 @@
     "unit": "unique dataset-query after averaging repeated depth/seed observations",
     "units": 1335
   },
-  "year": 2026
+  "year": 2026,
+  "candidate_cutoff_policy": "maximum_candidate_cutoff denotes the configured first-stage candidate cap; actual candidate counts may be smaller for sparse queries",
+  "revision_v2_20260830": {
+    "status": "PASS",
+    "query_units": 6000,
+    "distribution_rows": 12,
+    "corrected_throughput_rows": 180,
+    "latency_boundary_rows": 180,
+    "ratio_rows": 60,
+    "nfcorpus_cutoff20": {
+      "all_actual_equals_nominal": false,
+      "dataset": "nfcorpus",
+      "max_actual_candidate_count": 20.0,
+      "maximum_candidate_cutoff": 20,
+      "mean_actual_candidate_count": 15.308,
+      "min_actual_candidate_count": 0.0,
+      "n_query_seed_units": 500,
+      "p25_actual_candidate_count": 10.75,
+      "p50_actual_candidate_count": 20.0,
+      "p75_actual_candidate_count": 20.0,
+      "zero_candidate_count": 39
+    },
+    "arguana_fiqa_scifact_nominal_deviation_count": 0
+  },
+  "maximum_candidate_cutoffs": [
+    20,
+    50,
+    100
+  ],
+  "depths_legacy_alias": [
+    20,
+    50,
+    100
+  ],
+  "legacy_depth_field_policy": "The depth field is retained in some CSVs for backward-compatible reads; public interpretation is maximum_candidate_cutoff."
 }

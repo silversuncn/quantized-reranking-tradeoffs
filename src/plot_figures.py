@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate the active Paper 23 figures from archived aggregate evidence."""
+"""Regenerate active quantized-reranking figures from archived evidence."""
 
 from __future__ import annotations
 
@@ -31,15 +31,32 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
-def latency_by_depth(rows: list[dict[str, str]]) -> dict[str, dict[int, float]]:
+def field(row: dict[str, str], *names: str) -> str:
+    for name in names:
+        if name in row and row[name] != "":
+            return row[name]
+    raise KeyError(names)
+
+
+def cutoff(row: dict[str, str]) -> int:
+    return int(float(field(row, "maximum_candidate_cutoff", "depth")))
+
+
+def latency(row: dict[str, str]) -> float:
+    return float(field(row, "end_to_end_latency_s_per_query", "mean_latency_s_per_query", "latency_s_per_query"))
+
+
+def ndcg(row: dict[str, str]) -> float:
+    return float(field(row, "mean_ndcg@10", "ndcg@10"))
+
+
+def latency_by_cutoff(rows: list[dict[str, str]]) -> dict[str, dict[int, float]]:
     grouped: dict[tuple[str, int], list[float]] = defaultdict(list)
     for row in rows:
-        grouped[(METHOD_LABELS[row["method"]], int(row["depth"]))].append(
-            float(row["mean_latency_s_per_query"])
-        )
+        grouped[(METHOD_LABELS[row["method"]], cutoff(row))].append(latency(row))
     values: dict[str, dict[int, float]] = defaultdict(dict)
-    for (method, depth), samples in grouped.items():
-        values[method][depth] = statistics.mean(samples)
+    for (method, candidate_cutoff), samples in grouped.items():
+        values[method][candidate_cutoff] = statistics.mean(samples)
     return dict(values)
 
 
@@ -48,7 +65,7 @@ def delta_grid(rows: list[dict[str, str]]) -> tuple[list[str], list[int], list[l
     depths = [20, 50, 100]
     grouped: dict[tuple[str, int], list[float]] = defaultdict(list)
     for row in rows:
-        grouped[(DATASET_LABELS[row["dataset"]], int(row["depth"]))].append(
+        grouped[(DATASET_LABELS[row["dataset"]], cutoff(row))].append(
             float(row["int8_minus_fp32_ndcg@10"])
         )
     values = [[statistics.mean(grouped[(dataset, depth)]) for depth in depths] for dataset in datasets]
@@ -102,8 +119,8 @@ def render_figures(summary_csv: Path, paired_csv: Path, output_dir: Path) -> Non
     for method in ("BM25", "FP32", "INT8"):
         rows = [row for row in summary_rows if METHOD_LABELS[row["method"]] == method]
         ax.scatter(
-            [float(row["mean_latency_s_per_query"]) for row in rows],
-            [float(row["mean_ndcg@10"]) for row in rows],
+            [latency(row) for row in rows],
+            [ndcg(row) for row in rows],
             s=20,
             marker=MARKERS[method],
             color=COLORS[method],
@@ -120,19 +137,19 @@ def render_figures(summary_csv: Path, paired_csv: Path, output_dir: Path) -> Non
     save_both(fig, output_dir, "quality_cost_pareto")
     plt.close(fig)
 
-    latency = latency_by_depth(summary_rows)
+    latency_values = latency_by_cutoff(summary_rows)
     fig, ax = plt.subplots(figsize=(3.5, 2.25))
     for method in ("BM25", "FP32", "INT8"):
-        depths = sorted(latency[method])
+        depths = sorted(latency_values[method])
         ax.plot(
             depths,
-            [latency[method][depth] for depth in depths],
+            [latency_values[method][depth] for depth in depths],
             marker=MARKERS[method],
             markersize=4.0,
             color=COLORS[method],
             label=method,
         )
-    ax.set_xlabel("Candidate depth")
+    ax.set_xlabel("Maximum candidate cutoff")
     ax.set_ylabel("Latency (s/query)")
     ax.set_xticks([20, 50, 100])
     ax.grid(True, linewidth=0.35, alpha=0.28)
@@ -147,7 +164,7 @@ def render_figures(summary_csv: Path, paired_csv: Path, output_dir: Path) -> Non
     image = ax.imshow(values, cmap="RdBu_r", norm=TwoSlopeNorm(vmin=-bound, vcenter=0.0, vmax=bound), aspect="auto")
     ax.set_xticks(range(len(depths)), depths)
     ax.set_yticks(range(len(datasets)), datasets)
-    ax.set_xlabel("Candidate depth")
+    ax.set_xlabel("Maximum candidate cutoff")
     for y, row in enumerate(values):
         for x, value in enumerate(row):
             ax.text(x, y, f"{value:+.3f}", ha="center", va="center", fontsize=7, color="black")

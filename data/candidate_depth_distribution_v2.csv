@@ -1,0 +1,13 @@
+dataset,maximum_candidate_cutoff,n_query_seed_units,mean_actual_candidate_count,min_actual_candidate_count,p25_actual_candidate_count,p50_actual_candidate_count,p75_actual_candidate_count,max_actual_candidate_count,zero_candidate_count,all_actual_equals_nominal
+arguana,20,500,20.0,20.0,20.0,20.0,20.0,20.0,0,True
+arguana,50,500,50.0,50.0,50.0,50.0,50.0,50.0,0,True
+arguana,100,500,100.0,100.0,100.0,100.0,100.0,100.0,0,True
+fiqa,20,500,20.0,20.0,20.0,20.0,20.0,20.0,0,True
+fiqa,50,500,50.0,50.0,50.0,50.0,50.0,50.0,0,True
+fiqa,100,500,100.0,100.0,100.0,100.0,100.0,100.0,0,True
+nfcorpus,20,500,15.308,0.0,10.75,20.0,20.0,20.0,39,False
+nfcorpus,50,500,35.388,0.0,10.75,50.0,50.0,50.0,39,False
+nfcorpus,100,500,66.14,0.0,10.75,100.0,100.0,100.0,39,False
+scifact,20,500,20.0,20.0,20.0,20.0,20.0,20.0,0,True
+scifact,50,500,50.0,50.0,50.0,50.0,50.0,50.0,0,True
+scifact,100,500,100.0,100.0,100.0,100.0,100.0,100.0,0,True
